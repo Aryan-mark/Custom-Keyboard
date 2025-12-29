@@ -3,58 +3,55 @@
 //  CustomKeyboard
 //
 //  Created by Aryan Jaiswal on 24/12/25.
-//
-
 import UIKit
+import SwiftUI
 
 class KeyboardViewController: UIInputViewController {
 
-    @IBOutlet var nextKeyboardButton: UIButton!
-    
-    override func updateViewConstraints() {
-        super.updateViewConstraints()
-        
-        // Add custom view sizing constraints here
-    }
-    
+    private var hostingController: UIHostingController<KeyboardView>?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Perform custom UI setup here
-        self.nextKeyboardButton = UIButton(type: .system)
-        
-        self.nextKeyboardButton.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), for: [])
-        self.nextKeyboardButton.sizeToFit()
-        self.nextKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.nextKeyboardButton.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
-        
-        self.view.addSubview(self.nextKeyboardButton)
-        
-        self.nextKeyboardButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        self.nextKeyboardButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-    }
-    
-    override func viewWillLayoutSubviews() {
-        self.nextKeyboardButton.isHidden = !self.needsInputModeSwitchKey
-        super.viewWillLayoutSubviews()
-    }
-    
-    override func textWillChange(_ textInput: UITextInput?) {
-        // The app is about to change the document's contents. Perform any preparation here.
-    }
-    
-    override func textDidChange(_ textInput: UITextInput?) {
-        // The app has just changed the document's contents, the document context has been updated.
-        
-        var textColor: UIColor
-        let proxy = self.textDocumentProxy
-        if proxy.keyboardAppearance == UIKeyboardAppearance.dark {
-            textColor = UIColor.white
-        } else {
-            textColor = UIColor.black
-        }
-        self.nextKeyboardButton.setTitleColor(textColor, for: [])
+
+        // Create a hosting controller to embed SwiftUI views
+        let keyboardView = KeyboardView(onKeyPress: { [weak self] key in
+            self?.insertText(key)
+        })
+        hostingController = UIHostingController(rootView: keyboardView)
+
+        guard let hostingController = hostingController else { return }
+
+        // Add the hosting controller's view to the input view controller's view hierarchy
+        addChild(hostingController)
+        view.addSubview(hostingController.view)
+        hostingController.didMove(toParent: self)
+
+        // Set up constraints to make the hosting view fill the entire view
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Ensure the hosting controller's view is properly sized
+        hostingController?.view.frame = view.bounds
+    }
+
+    private func insertText(_ text: String) {
+        switch text {
+        case "⌫": // Backspace
+            textDocumentProxy.deleteBackward()
+        case "⏎": // Return
+            textDocumentProxy.insertText("\n")
+        case "␣": // Space
+            textDocumentProxy.insertText(" ")
+        default:
+            textDocumentProxy.insertText(text)
+        }
+    }
 }
