@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8BD1B0622EFC001100A29D02 /* CustomKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BD1B05B2EFC001100A29D02 /* CustomKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8BFD5A9D2F027FCC006E29CA /* CustomKeyboard2.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BFD5A962F027FCC006E29CA /* CustomKeyboard2.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -17,6 +18,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8BD1B05A2EFC001100A29D02;
 			remoteInfo = CustomKeyboard;
+		};
+		8BFD5A9B2F027FCC006E29CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BD1B0382EFBFC7300A29D02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8BFD5A952F027FCC006E29CA;
+			remoteInfo = CustomKeyboard2;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -28,6 +36,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				8BD1B0622EFC001100A29D02 /* CustomKeyboard.appex in Embed Foundation Extensions */,
+				8BFD5A9D2F027FCC006E29CA /* CustomKeyboard2.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,6 +46,7 @@
 /* Begin PBXFileReference section */
 		8BD1B0402EFBFC7400A29D02 /* Keyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Keyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BD1B05B2EFC001100A29D02 /* CustomKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CustomKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BFD5A962F027FCC006E29CA /* CustomKeyboard2.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CustomKeyboard2.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -62,6 +72,20 @@
 			);
 			target = 8BD1B03F2EFBFC7400A29D02 /* Keyboard */;
 		};
+		8BFD5AA12F027FCC006E29CA /* Exceptions for "CustomKeyboard2" folder in "CustomKeyboard2" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8BFD5A952F027FCC006E29CA /* CustomKeyboard2 */;
+		};
+		8BFD5AA92F028567006E29CA /* Exceptions for "CustomKeyboard2" folder in "Keyboard" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				KeyboardView2.swift,
+			);
+			target = 8BD1B03F2EFBFC7400A29D02 /* Keyboard */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -82,6 +106,15 @@
 			path = CustomKeyboard;
 			sourceTree = "<group>";
 		};
+		8BFD5A972F027FCC006E29CA /* CustomKeyboard2 */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8BFD5AA92F028567006E29CA /* Exceptions for "CustomKeyboard2" folder in "Keyboard" target */,
+				8BFD5AA12F027FCC006E29CA /* Exceptions for "CustomKeyboard2" folder in "CustomKeyboard2" target */,
+			);
+			path = CustomKeyboard2;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +132,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8BFD5A932F027FCC006E29CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -107,6 +147,7 @@
 			children = (
 				8BD1B0422EFBFC7400A29D02 /* Keyboard */,
 				8BD1B05C2EFC001100A29D02 /* CustomKeyboard */,
+				8BFD5A972F027FCC006E29CA /* CustomKeyboard2 */,
 				8BD1B0412EFBFC7400A29D02 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -116,6 +157,7 @@
 			children = (
 				8BD1B0402EFBFC7400A29D02 /* Keyboard.app */,
 				8BD1B05B2EFC001100A29D02 /* CustomKeyboard.appex */,
+				8BFD5A962F027FCC006E29CA /* CustomKeyboard2.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,6 +178,7 @@
 			);
 			dependencies = (
 				8BD1B0612EFC001100A29D02 /* PBXTargetDependency */,
+				8BFD5A9C2F027FCC006E29CA /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				8BD1B0422EFBFC7400A29D02 /* Keyboard */,
@@ -169,6 +212,28 @@
 			productReference = 8BD1B05B2EFC001100A29D02 /* CustomKeyboard.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		8BFD5A952F027FCC006E29CA /* CustomKeyboard2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8BFD5AA02F027FCC006E29CA /* Build configuration list for PBXNativeTarget "CustomKeyboard2" */;
+			buildPhases = (
+				8BFD5A922F027FCC006E29CA /* Sources */,
+				8BFD5A932F027FCC006E29CA /* Frameworks */,
+				8BFD5A942F027FCC006E29CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8BFD5A972F027FCC006E29CA /* CustomKeyboard2 */,
+			);
+			name = CustomKeyboard2;
+			packageProductDependencies = (
+			);
+			productName = CustomKeyboard2;
+			productReference = 8BFD5A962F027FCC006E29CA /* CustomKeyboard2.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -183,6 +248,9 @@
 						CreatedOnToolsVersion = 26.1.1;
 					};
 					8BD1B05A2EFC001100A29D02 = {
+						CreatedOnToolsVersion = 26.1.1;
+					};
+					8BFD5A952F027FCC006E29CA = {
 						CreatedOnToolsVersion = 26.1.1;
 					};
 				};
@@ -203,6 +271,7 @@
 			targets = (
 				8BD1B03F2EFBFC7400A29D02 /* Keyboard */,
 				8BD1B05A2EFC001100A29D02 /* CustomKeyboard */,
+				8BFD5A952F027FCC006E29CA /* CustomKeyboard2 */,
 			);
 		};
 /* End PBXProject section */
@@ -216,6 +285,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8BD1B0592EFC001100A29D02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8BFD5A942F027FCC006E29CA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -239,6 +315,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8BFD5A922F027FCC006E29CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -246,6 +329,11 @@
 			isa = PBXTargetDependency;
 			target = 8BD1B05A2EFC001100A29D02 /* CustomKeyboard */;
 			targetProxy = 8BD1B0602EFC001100A29D02 /* PBXContainerItemProxy */;
+		};
+		8BFD5A9C2F027FCC006E29CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8BFD5A952F027FCC006E29CA /* CustomKeyboard2 */;
+			targetProxy = 8BFD5A9B2F027FCC006E29CA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -376,6 +464,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZRPL2B2TTJ;
@@ -385,6 +474,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
@@ -393,7 +485,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Keyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitcot.customkeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -410,6 +502,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZRPL2B2TTJ;
@@ -419,6 +512,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
@@ -427,7 +523,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Keyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitcot.customkeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -442,6 +538,7 @@
 		8BD1B0642EFC001100A29D02 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CustomKeyboard/CustomKeyboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZRPL2B2TTJ;
@@ -455,7 +552,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Keyboard.CustomKeyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitcot.customkeyboard.CustomKeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -470,6 +567,7 @@
 		8BD1B0652EFC001100A29D02 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CustomKeyboard/CustomKeyboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZRPL2B2TTJ;
@@ -483,7 +581,65 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Keyboard.CustomKeyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitcot.customkeyboard.CustomKeyboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8BFD5A9E2F027FCC006E29CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CustomKeyboard2/CustomKeyboard2.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZRPL2B2TTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CustomKeyboard2/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CustomKeyboard2;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitcot.customkeyboard.CustomKeyboard2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8BFD5A9F2F027FCC006E29CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CustomKeyboard2/CustomKeyboard2.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZRPL2B2TTJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CustomKeyboard2/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CustomKeyboard2;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitcot.customkeyboard.CustomKeyboard2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -521,6 +677,15 @@
 			buildConfigurations = (
 				8BD1B0642EFC001100A29D02 /* Debug */,
 				8BD1B0652EFC001100A29D02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8BFD5AA02F027FCC006E29CA /* Build configuration list for PBXNativeTarget "CustomKeyboard2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8BFD5A9E2F027FCC006E29CA /* Debug */,
+				8BFD5A9F2F027FCC006E29CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
