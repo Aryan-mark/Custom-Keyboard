@@ -7,48 +7,76 @@
 
 import SwiftUI
 
+enum KeyboardMode {
+    case letters
+    case numbers
+    case symbols
+}
+
 struct KeyboardView2: View {
     let onKeyPress: (String) -> Void
-    
+
     @State private var isShifted = false
+    @State private var keyboardMode: KeyboardMode = .letters
+
+    // Keyboard layouts
     
-    // Keyboard layout
+    let topCapsCharacter = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
+    let topSmallCharacter = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
+    let middleCapsCharacter = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
+    let middleSmallCharacter = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
+    let bottomCapsCharacter = ["Z", "X", "C", "V", "B", "N", "M"]
+    let bottomSmallCharacter = ["z", "x", "c", "v", "b", "n", "m"]
+    
     let numberRow = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+    let symbolRow1 = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"]
+    let symbolRow2 = ["-", "_", "=", "+", "[", "]", "{", "}", "\\", "|"]
+    let symbolRow3 = [":", ";", "\"", "'", "<", ">", ",", ".", "?", "/"]
     
     var topRow: [String] {
-        isShifted ? ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"] : ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
+        switch keyboardMode {
+        case .letters:
+            return isShifted ? topCapsCharacter : topSmallCharacter
+        case .numbers:
+            return numberRow
+        case .symbols:
+            return symbolRow1
+        }
     }
-    
+
     var middleRow: [String] {
-        isShifted ? ["A", "S", "D", "F", "G", "H", "J", "K", "L"] : ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
+        switch keyboardMode {
+        case .letters:
+            return isShifted ? middleCapsCharacter : middleSmallCharacter
+        case .numbers:
+            return symbolRow2
+        case .symbols:
+            return symbolRow3
+        }
     }
-    
+
     var bottomRow: [String] {
-        isShifted ? ["Z", "X", "C", "V", "B", "N", "M"] : ["z", "x", "c", "v", "b", "n", "m"]
+        switch keyboardMode {
+        case .letters:
+            return isShifted ? bottomCapsCharacter : bottomSmallCharacter
+        case .numbers:
+            return symbolRow3
+        case .symbols:
+            return symbolRow2
+        }
     }
     
     var body: some View {
         ZStack {
-            // Keyboard background color
-//            Color.gray.opacity(0.2)
-//                .ignoresSafeArea()
-            
             VStack(alignment: .leading , spacing: 12) {
-                // Number row
-                //                HStack(spacing: 4) {
-                //                    ForEach(numberRow, id: \.self) { key in
-                //                        KeyButton2( key: key,color: Color.white, onKeyPress: onKeyPress, isShifted: .constant(false))
-                //                    }
-                //                }
-                
-                // Top row (QWERTY...)
+                // Top row
                 HStack(spacing: 5) {
                     ForEach(topRow, id: \.self) { key in
-                        KeyButton2(key: key,color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: $isShifted)
+                        KeyButton2(key: key, color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: keyboardMode == .letters ? $isShifted : .constant(false))
                     }
                 }
-                .frame(maxWidth: .infinity,alignment: .leading)
-                .padding(.horizontal,8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, keyboardMode == .letters ? 8 : 8)
                 
                 // Middle row (ASDF...)
                 HStack(spacing: 4) {
@@ -59,76 +87,79 @@ struct KeyboardView2: View {
                 .frame(maxWidth: .infinity,alignment: .leading)
                 .padding(.horizontal,25)
                 
-                // Bottom row (ZXCV...)
+                // Bottom row
                 HStack(spacing: 5) {
-                    // Shift key
-                    Button(action: {
-                        isShifted.toggle()
-                    }) {
-                        Text("⇧")
-                            .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(isShifted ? .blue : .gray)
-                            .frame(height: 45)
-                            .frame(minWidth: 45)
-                            .background(isShifted ? Color.blue.opacity(0.2) : Color.gray.opacity(0.2))
-                            .cornerRadius(4)
-                            .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                    if keyboardMode == .letters {
+                        Button(action: {
+                            isShifted.toggle()
+                        }) {
+                            Text("⇧")
+                                .font(.system(size: 20, weight: .medium))
+                                .foregroundColor(isShifted ? .blue : .gray)
+                                .frame(height: 45)
+                                .frame(minWidth: 45)
+                                .background(isShifted ? Color.blue.opacity(0.2) : Color.gray.opacity(0.2))
+                                .cornerRadius(4)
+                                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                        }
+                        .frame(width: 50)
                     }
-                    .frame(width: 50)
-                    
+
                     Spacer().frame(width: 0)
-                    // Bottom row letters
+                    // Bottom row keys
                     HStack(spacing: 5) {
                         ForEach(bottomRow, id: \.self) { key in
-                            KeyButton2(key: key,color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: $isShifted)
+                            KeyButton2(key: key, color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: keyboardMode == .letters ? $isShifted : .constant(false))
                         }
                     }
                     Spacer().frame(width: 0)
 
+                    // Backspace key
                     Button(action: {
                         onKeyPress("⌫")
                     }) {
                         Text("⌫")
                             .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(isShifted ? .blue : .gray)
+                            .foregroundColor(.gray)
                             .frame(height: 45)
                             .frame(minWidth: 45)
-                            .background(isShifted ? Color.blue.opacity(0.2) : Color.gray.opacity(0.2))
+                            .background(Color.gray.opacity(0.2))
                             .cornerRadius(4)
                             .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
                     }
                     .frame(width: 50)
                 }
-                .frame(maxWidth: .infinity,alignment: .leading)
-                .padding(.horizontal,5)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 5)
                 
                 // Space bar and return row
                 HStack(spacing: 5) {
-                    
+
+                    // Mode switch button
                     Button(action: {
-                        onKeyPress("123")
+                        switch keyboardMode {
+                        case .letters:
+                            keyboardMode = .numbers
+                        case .numbers:
+                            keyboardMode = .symbols
+                        case .symbols:
+                            keyboardMode = .letters
+                        }
                     }) {
-                        Text("123")
-                            .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(isShifted ? .blue : .gray)
+                        Text(keyboardMode == .letters ? "123" : keyboardMode == .numbers ? "#+=" : "ABC")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.blue)
                             .frame(height: 45)
                             .frame(minWidth: 45)
-                            .background(isShifted ? Color.blue.opacity(0.2) : Color.gray.opacity(0.2))
+                            .background(Color.blue.opacity(0.2))
                             .cornerRadius(4)
                             .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
                     }
                     .frame(width: 50)
-                    
-                    // Return key
-//                    KeyButton2(key: ".",color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: .constant(false))
-                    
-                    
+
                     // Space bar
                     SpaceKeyButton2(key: "␣", color: Color.orange.opacity(0.2), onKeyPress: onKeyPress, isShifted: .constant(false))
                         .frame(maxWidth: .infinity)
-                    
-                    // Period and comma
-//                    KeyButton2(key: ",",color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: .constant(false))
                     
                     Button(action: {
                         onKeyPress("⏎")
@@ -143,9 +174,6 @@ struct KeyboardView2: View {
                             .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
                     }
                     .frame(width: 50)
-//                    
-//                    SpecialKeyButton2(key: "⏎",color: Color.gray.opacity(0.2), onKeyPress: onKeyPress)
-//                        .frame(width: 80)
                     
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
