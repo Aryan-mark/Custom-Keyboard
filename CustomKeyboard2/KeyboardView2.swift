@@ -11,6 +11,7 @@ enum KeyboardMode {
     case letters
     case numbers
     case symbols
+    case emojis
 }
 
 struct KeyboardView2: View {
@@ -32,6 +33,36 @@ struct KeyboardView2: View {
     let symbolRow1 = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"]
     let symbolRow2 = ["-", "_", "=", "+", "[", "]", "{", "}", "\\", "|"]
     let symbolRow3 = [":", ";", "\"", "'", "<", ">", ",", ".", "?", "/"]
+
+    // Comprehensive iPhone emoji dataset
+    let emojis: [[String]] = [
+        // Smileys & People
+        ["😀", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "🙃", "😉", "😊", "😇", "🥰", "😍", "🤩", "😘", "😗", "☺️", "😚", "😙", "🥲", "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔", "🤐", "🤨", "😐", "😑", "😶", "😏", "😒", "🙄", "😬", "🤥", "😔", "😪", "🤤", "😴", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵", "🥶", "🥴", "😵", "🤯", "🤠", "🥳", "🥸", "😎", "🤓", "🧐", "😕", "😟", "🙁", "☹️", "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😢", "😭", "😱", "😖", "😣", "😞", "😓", "😩", "😫", "🥱", "😤", "😡", "😠", "🤬", "😈", "👿", "💀", "☠️", "💩", "🤡", "👹", "👺", "👻", "👽", "👾", "🤖", "😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾"],
+
+        // People & Gestures
+        ["👋", "🤚", "🖐️", "✋", "🖖", "👌", "🤌", "🤏", "✌️", "🤞", "🤟", "🤘", "🤙", "👈", "👉", "👆", "🖕", "👇", "☝️", "👍", "👎", "👊", "✊", "🤛", "🤜", "👏", "🙌", "👐", "🤲", "🤝", "🙏", "✍️", "💅", "🤳", "💪", "🦾", "🦿", "🦵", "🦶", "👂", "🦻", "👃", "🧠", "🫀", "🫁", "🦷", "🦴", "👀", "👁️", "👅", "👄", "👶", "🧒", "👦", "👧", "🧑", "👱", "👨", "🧔", "👩", "🧓", "👴", "👵", "🙍", "🙎", "🙅", "🙆", "💁", "🙋", "🧏", "🙇", "🤦", "🤷", "👮", "🕵️", "💂", "🥷", "👷", "🤴", "👸", "👳", "👲", "🧕", "🤵", "🤰", "🤱", "👼", "🎅", "🤶", "🦸", "🦹", "🧙", "🧚", "🧛", "🧜", "🧝", "🧞", "🧟", "💆", "💇", "🚶", "🧍", "🧎", "👨‍🦯", "👩‍🦯", "👨‍🦼", "👩‍🦼", "👨‍🦽", "👩‍🦽", "🏃", "💃", "🕺", "🕴️", "👯", "🧖", "🧗", "🤺", "🏇", "⛷️", "🏂", "🏌️", "🏄", "🚣", "🏊", "⛹️", "🏋️", "🚴", "🚵", "🤼", "🤽", "🤹", "🧘", "🛀", "🛌"],
+
+        // Animals & Nature
+        ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷", "🐽", "🐸", "🐵", "🙈", "🙉", "🙊", "🐒", "🐔", "🐧", "🐦", "🐤", "🐣", "🐥", "🦆", "🦅", "🦉", "🦇", "🐺", "🐗", "🐴", "🦄", "🐝", "🐛", "🦋", "🐌", "🐞", "🐜", "🦗", "🕷️", "🦂", "🐢", "🐍", "🦎", "🦖", "🦕", "🐙", "🦑", "🦐", "🦞", "🦀", "🐡", "🐠", "🐟", "🐬", "🐳", "🐋", "🦈", "🐊", "🐅", "🐆", "🦓", "🦍", "🦧", "🐘", "🦛", "🦏", "🐪", "🐫", "🦒", "🦘", "🐃", "🐂", "🐄", "🐎", "🐖", "🐏", "🐑", "🦙", "🐐", "🦌", "🐕", "🐩", "🦮", "🐕‍🦺", "🐈", "🐈‍⬛", "🐓", "🦃", "🦚", "🦜", "🦢", "🦩", "🕊️", "🐇", "🦝", "🦨", "🦡", "🦦", "🦥", "🐁", "🐀", "🐿️", "🦔", "🐾", "🐉", "🐲", "🌵", "🎄", "🌲", "🌳", "🌴", "🪵", "🌱", "🌿", "☘️", "🍀", "🎋", "🎍", "🌾", "🌸", "🌺", "🌻", "🌷", "🌹", "🥀", "🌼", "🍄", "🌰"],
+
+        // Food & Drink
+        ["🍎", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥥", "🥝", "🍅", "🍆", "🥑", "🥦", "🥬", "🥒", "🌶️", "🫑", "🌽", "🥕", "🫒", "🧄", "🧅", "🥔", "🍠", "🥐", "🥖", "🍞", "🥨", "🥯", "🧀", "🥚", "🍳", "🧈", "🥞", "🧇", "🥓", "🥩", "🍗", "🍖", "🦴", "🌭", "🍔", "🍟", "🍕", "🫓", "🥙", "🌮", "🌯", "🫔", "🥗", "🥘", "🫕", "🍝", "🍜", "🍲", "🍛", "🍣", "🍱", "🥟", "🦪", "🍤", "🍙", "🍚", "🍘", "🍥", "🥠", "🥮", "🍢", "🍡", "🍧", "🍨", "🍦", "🥧", "🧁", "🍰", "🎂", "🍮", "🍭", "🍬", "🍫", "🍿", "🍩", "🍪", "🌰", "🥜", "🍯", "🥛", "🍼", "☕", "🫖", "🍵", "🧃", "🥤", "🧋", "🍶", "🍺", "🍻", "🥂", "🍷", "🥃", "🍸", "🍹", "🧉", "🍾"],
+
+        // Activities & Sports
+        ["⚽", "🏀", "🏈", "⚾", "🥎", "🎾", "🏐", "🏉", "🥏", "🎱", "🪀", "🏓", "🏸", "🏒", "🏑", "🥍", "🏏", "🪃", "🥅", "⛳", "🪁", "🏹", "🎣", "🤿", "🥊", "🥋", "🎽", "🛹", "🛷", "⛸️", "🥌", "🎿", "⛷️", "🏂", "🪂", "🏋️", "🤼", "🤸", "⛹️", "🤺", "🧘", "🏃", "🚶", "🧎", "🧍", "🤽", "🤾", "🏇", "🏊", "🚣", "🏄", "🚵", "🚴", "🎪", "🎭", "🩰", "🎨", "🎬", "🎤", "🎧", "🎼", "🎹", "🥁", "🪘", "🎷", "🎺", "🪗", "🎸", "🪕", "🎻", "🎲", "♠️", "♥️", "♦️", "♣️", "🃏", "🀄", "🎴", "🎯", "🎳", "🎮", "🕹️", "🎰", "🧩"],
+
+        // Travel & Places
+        ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🚚", "🚛", "🚜", "🏍️", "🛵", "🚲", "🛴", "🛹", "🚁", "🚟", "🚠", "🛤️", "🛣️", "🗺️", "⛽", "🚨", "🚥", "🚦", "🛑", "🚧", "⚓", "⛵", "🛶", "🚤", "🛳️", "⛴️", "🛥️", "🚢", "✈️", "🛩️", "🛫", "🛬", "🪂", "💺", "🚀", "🛸", "🚡", "🏔️", "⛰️", "🌋", "🗻", "🏕️", "🏖️", "🏜️", "🏝️", "🏞️", "🏟️", "🏛️", "🏗️", "🧱", "🏘️", "🏚️", "🏠", "🏡", "🏢", "🏣", "🏤", "🏥", "🏦", "🏨", "🏩", "🏪", "🏫", "🏬", "🏭", "🏯", "🏰", "💒", "🗼", "🗽", "⛪", "🕌", "🛕", "🕍", "⛩️", "🕋", "⛲", "⛺", "🌁", "🌃", "🏙️", "🌄", "🌅", "🌆", "🌇", "🌉", "♨️", "🎠", "🎡", "🎢", "💈", "🎪"],
+
+        // Objects
+        ["⌚", "📱", "📲", "💻", "⌨️", "🖥️", "🖨️", "🖱️", "🖲️", "🕹️", "🗜️", "💽", "💾", "💿", "📀", "📼", "📷", "📸", "📹", "🎥", "📽️", "🎞️", "📞", "☎️", "📟", "📠", "📺", "📻", "🎙️", "🎚️", "🎛️", "🧭", "⏱️", "⏲️", "⏰", "🕰️", "⌛", "⏳", "📡", "🔋", "🔌", "💡", "🔦", "🕯️", "🪔", "🧯", "🛢️", "💸", "💵", "💴", "💶", "💷", "💰", "💳", "💎", "⚖️", "🪜", "🧰", "🧲", "⚗️", "🧪", "🧫", "🧬", "🔬", "🔭", "💉", "🩸", "💊", "🩹", "🩼", "🩺", "🚪", "🪑", "🛋️", "🛏️", "🛌", "🚽", "🪠", "🚿", "🛁", "🪒", "🧴", "🧷", "🧹", "🧺", "🧽", "🧼", "🪣", "🪥"],
+
+        // Symbols
+        ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💔", "❤️‍🔥", "❤️‍🩹", "💕", "💞", "💓", "💗", "💖", "💘", "💝", "💟", "☮️", "✝️", "☪️", "🕉️", "☸️", "✡️", "🔯", "🕎", "☯️", "☦️", "🛐", "⛎", "♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓", "🆔", "⚛️", "🉑", "☢️", "☣️", "📴", "📳", "🈶", "🈚", "🈸", "🈺", "🈷️", "✴️", "🆚", "💮", "🉐", "㊙️", "㊗️", "🈴", "🔞", "📵", "🚳", "🚭", "🚯", "🚱", "🚷", "♿", "🅿️", "🈂️", "🛂", "🛃", "🛄", "🛅", "⚠️", "🚸", "⛔", "🚫", "⬆️", "↗️", "➡️", "↘️", "⬇️", "↙️", "⬅️", "↖️", "↕️", "↔️", "↩️", "↪️", "⤴️", "⤵️", "🔃", "🔄", "🔙", "🔚", "🔛", "🔜", "🔝", "🔀", "🔁", "🔂", "▶️", "⏩", "⏭️", "⏯️", "◀️", "⏪", "⏮️", "🔼", "⏫", "🔽", "⏬", "⏸️", "⏹️", "⏺️", "⏏️", "🎦", "🔅", "🔆", "📶", "📳", "📴", "♀️", "♂️", "⚧️", "✖️", "➕", "➖", "➗", "🟰", "♾️", "‼️", "⁉️", "❓", "❔", "❕", "❗", "〰️", "💱", "💲", "⚕️", "♻️", "⚜️", "🔱", "📛", "🔰", "⭕", "✅", "☑️", "✔️", "❌", "❎", "➰", "➿", "〽️", "✳️", "✴️", "❇️", "©️", "®️", "™️", "🔟", "🔢"],
+
+        // Flags
+        ["🏁", "🚩", "🎌", "🏴", "🏳️", "🏳️‍🌈", "🏳️‍⚧️", "🏴‍☠️", "🇦🇫", "🇦🇱", "🇩🇿", "🇦🇸", "🇦🇩", "🇦🇴", "🇦🇮", "🇦🇶", "🇦🇬", "🇦🇷", "🇦🇲", "🇦🇼", "🇦🇺", "🇦🇹", "🇦🇿", "🇧🇸", "🇧🇭", "🇧🇩", "🇧🇧", "🇧🇾", "🇧🇪", "🇧🇿", "🇧🇯", "🇧🇲", "🇧🇹", "🇧🇴", "🇧🇦", "🇧🇼", "🇧🇷", "🇧🇳", "🇧🇬", "🇧🇫", "🇧🇮", "🇰🇭", "🇨🇲", "🇨🇦", "🇨🇻", "🇰🇾", "🇨🇫", "🇹🇩", "🇨🇱", "🇨🇳", "🇨🇴", "🇰🇲", "🇨🇬", "🇨🇩", "🇨🇰", "🇨🇷", "🇭🇷", "🇨🇺", "🇨🇾", "🇨🇿", "🇩🇰", "🇩🇯", "🇩🇲", "🇩🇴", "🇪🇨", "🇪🇬", "🇸🇻", "🇬🇶", "🇪🇷", "🇪🇪", "🇸🇿", "🇪🇹", "🇫🇰", "🇫🇴", "🇫🇯", "🇫🇮", "🇫🇷", "🇬🇫", "🇵🇫", "🇹🇫", "🇬🇦", "🇬🇲", "🇬🇪", "🇩🇪", "🇬🇭", "🇬🇮", "🇬🇷", "🇬🇱", "🇬🇩", "🇬🇵", "🇬🇺", "🇬🇹", "🇬🇬", "🇬🇳", "🇬🇼", "🇬🇾", "🇭🇹", "🇭🇳", "🇭🇰", "🇭🇺", "🇮🇸", "🇮🇳", "🇮🇩", "🇮🇷", "🇮🇶", "🇮🇪", "🇮🇲", "🇮🇱", "🇮🇹", "🇨🇮", "🇯🇲", "🇯🇵", "🇯🇪", "🇯🇴", "🇰🇿", "🇰🇪", "🇰🇮", "🇰🇵", "🇰🇷", "🇰🇼", "🇰🇬", "🇱🇦", "🇱🇻", "🇱🇧", "🇱🇸", "🇱🇷", "🇱🇾", "🇱🇮", "🇱🇹", "🇱🇺", "🇲🇴", "🇲🇰", "🇲🇬", "🇲🇼", "🇲🇾", "🇲🇻", "🇲🇱", "🇲🇹", "🇲🇭", "🇲🇶", "🇲🇷", "🇲🇺", "🇾🇹", "🇲🇽", "🇫🇲", "🇲🇩", "🇲🇨", "🇲🇳", "🇲🇪", "🇲🇸", "🇲🇦", "🇲🇿", "🇲🇲", "🇳🇦", "🇳🇷", "🇳🇵", "🇳🇱", "🇳🇨", "🇳🇿", "🇳🇮", "🇳🇪", "🇳🇬", "🇳🇺", "🇳🇫", "🇲🇵", "🇳🇴", "🇴🇲", "🇵🇰", "🇵🇼", "🇵🇸", "🇵🇦", "🇵🇬", "🇵🇾", "🇵🇪", "🇵🇭", "🇵🇳", "🇵🇱", "🇵🇹", "🇵🇷", "🇶🇦", "🇷🇪", "🇷🇴", "🇷🇺", "🇷🇼", "🇼🇸", "🇸🇲", "🇸🇹", "🇸🇦", "🇸🇳", "🇷🇸", "🇸🇨", "🇸🇱", "🇸🇬", "🇸🇰", "🇸🇮", "🇸🇧", "🇸🇴", "🇿🇦", "🇬🇸", "🇪🇸", "🇱🇰", "🇸🇩", "🇸🇷", "🇸🇯", "🇸🇪", "🇨🇭", "🇸🇾", "🇹🇼", "🇹🇯", "🇹🇿", "🇹🇭", "🇹🇱", "🇹🇬", "🇹🇰", "🇹🇴", "🇹🇹", "🇹🇳", "🇹🇷", "🇹🇲", "🇹🇨", "🇹🇻", "🇻🇮", "🇺🇬", "🇺🇦", "🇦🇪", "🇬🇧", "🇺🇸", "🇺🇾", "🇺🇿", "🇻🇺", "🇻🇦", "🇻🇪", "🇻🇳", "🇻🇬", "🇼🇫", "🇪🇭", "🇾🇪", "🇿🇲", "🇿🇼"]
+    ]
     
     var topRow: [String] {
         switch keyboardMode {
@@ -41,6 +72,8 @@ struct KeyboardView2: View {
             return numberRow
         case .symbols:
             return symbolRow1
+        case .emojis:
+            return []
         }
     }
 
@@ -52,6 +85,8 @@ struct KeyboardView2: View {
             return symbolRow2
         case .symbols:
             return symbolRow3
+        case .emojis:
+            return []
         }
     }
 
@@ -63,121 +98,214 @@ struct KeyboardView2: View {
             return symbolRow3
         case .symbols:
             return symbolRow2
+        case .emojis:
+            return []
         }
     }
-    
+
+    // Emoji View
+    var emojiView: some View {
+        VStack(spacing: 5) {
+            // Horizontal scrolling emoji rows
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHGrid(rows: Array(repeating: GridItem(.flexible()), count: 4), spacing: 5) {
+                    ForEach(emojis.flatMap { $0 }, id: \.self) { emoji in
+                        Button(action: {
+                            onKeyPress(emoji)
+                        }) {
+                            Text(emoji)
+                                .font(.system(size: 25))
+                                .frame(width: 30, height: 28)
+                                .cornerRadius(8)
+                        }
+                    }
+                }
+                .padding(.horizontal, 8)
+                .padding(.vertical,8)
+            }
+        }
+        .frame(height: 180)
+    }
+
     var body: some View {
         ZStack {
-            VStack(alignment: .leading , spacing: 12) {
-                // Top row
-                HStack(spacing: 5) {
-                    ForEach(topRow, id: \.self) { key in
-                        KeyButton2(key: key, color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: keyboardMode == .letters ? $isShifted : .constant(false))
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, keyboardMode == .letters ? 8 : 8)
-                
-                // Middle row (ASDF...)
-                HStack(spacing: 4) {
-                    ForEach(middleRow, id: \.self) { key in
-                        KeyButton2(key: key,color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: $isShifted)
-                    }
-                }
-                .frame(maxWidth: .infinity,alignment: .leading)
-                .padding(.horizontal,25)
-                
-                // Bottom row
-                HStack(spacing: 5) {
-                    if keyboardMode == .letters {
+            if keyboardMode == .emojis {
+                // Emoji keyboard
+                VStack(spacing: 0) {
+                    emojiView
+
+                    // Bottom row with back button and space
+                    HStack(spacing: 5) {
+                        // Back to letters button
                         Button(action: {
-                            isShifted.toggle()
+                            keyboardMode = .letters
                         }) {
-                            Text("⇧")
-                                .font(.system(size: 20, weight: .medium))
-                                .foregroundColor(isShifted ? .blue : .gray)
+                            Text("ABC")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.blue)
                                 .frame(height: 45)
                                 .frame(minWidth: 45)
-                                .background(isShifted ? Color.blue.opacity(0.2) : Color.gray.opacity(0.2))
+                                .background(Color.blue.opacity(0.2))
+                                .cornerRadius(4)
+                                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                        }
+                        .frame(width: 50)
+
+                        // Space bar
+                        SpaceKeyButton2(key: "␣", color: Color.orange.opacity(0.2), onKeyPress: onKeyPress, isShifted: .constant(false))
+                            .frame(maxWidth: .infinity)
+
+                        // Backspace
+                        Button(action: {
+                            onKeyPress("⌫")
+                        }) {
+                            Text("⌫")
+                                .font(.system(size: 20, weight: .medium))
+                                .foregroundColor(.gray)
+                                .frame(height: 45)
+                                .frame(minWidth: 45)
+                                .background(Color.gray.opacity(0.2))
                                 .cornerRadius(4)
                                 .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
                         }
                         .frame(width: 50)
                     }
-
-                    Spacer().frame(width: 0)
-                    // Bottom row keys
+                    .padding(.horizontal, 5)
+                    .padding(.bottom, 10)
+                    .padding(.top ,8)
+                }
+            } else {
+                // Regular keyboard
+                VStack(alignment: .leading , spacing: 12) {
+                    // Top row
                     HStack(spacing: 5) {
-                        ForEach(bottomRow, id: \.self) { key in
+                        ForEach(topRow, id: \.self) { key in
                             KeyButton2(key: key, color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: keyboardMode == .letters ? $isShifted : .constant(false))
                         }
                     }
-                    Spacer().frame(width: 0)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, keyboardMode == .letters ? 8 : 8)
 
-                    // Backspace key
-                    Button(action: {
-                        onKeyPress("⌫")
-                    }) {
-                        Text("⌫")
-                            .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(.gray)
-                            .frame(height: 45)
-                            .frame(minWidth: 45)
-                            .background(Color.gray.opacity(0.2))
-                            .cornerRadius(4)
-                            .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
-                    }
-                    .frame(width: 50)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 5)
-                
-                // Space bar and return row
-                HStack(spacing: 5) {
-
-                    // Mode switch button
-                    Button(action: {
-                        switch keyboardMode {
-                        case .letters:
-                            keyboardMode = .numbers
-                        case .numbers:
-                            keyboardMode = .symbols
-                        case .symbols:
-                            keyboardMode = .letters
+                    // Middle row (ASDF...)
+                    HStack(spacing: 4) {
+                        ForEach(middleRow, id: \.self) { key in
+                            KeyButton2(key: key,color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: $isShifted)
                         }
-                    }) {
-                        Text(keyboardMode == .letters ? "123" : keyboardMode == .numbers ? "#+=" : "ABC")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.blue)
-                            .frame(height: 45)
-                            .frame(minWidth: 45)
-                            .background(Color.blue.opacity(0.2))
-                            .cornerRadius(4)
-                            .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
                     }
-                    .frame(width: 50)
+                    .frame(maxWidth: .infinity,alignment: .leading)
+                    .padding(.horizontal,25)
 
-                    // Space bar
-                    SpaceKeyButton2(key: "␣", color: Color.orange.opacity(0.2), onKeyPress: onKeyPress, isShifted: .constant(false))
-                        .frame(maxWidth: .infinity)
-                    
-                    Button(action: {
-                        onKeyPress("⏎")
-                    }) {
-                        Text("⏎")
-                            .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(isShifted ? .blue : .gray)
-                            .frame(height: 45)
-                            .frame(minWidth: 45)
-                            .background(isShifted ? Color.blue.opacity(0.2) : Color.gray.opacity(0.2))
-                            .cornerRadius(4)
-                            .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                    // Bottom row
+                    HStack(spacing: 5) {
+                        if keyboardMode == .letters {
+                            Button(action: {
+                                isShifted.toggle()
+                            }) {
+                                Text("⇧")
+                                    .font(.system(size: 20, weight: .medium))
+                                    .foregroundColor(isShifted ? .blue : .gray)
+                                    .frame(height: 45)
+                                    .frame(minWidth: 45)
+                                    .background(isShifted ? Color.blue.opacity(0.2) : Color.gray.opacity(0.2))
+                                    .cornerRadius(4)
+                                    .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                            }
+                            .frame(width: 50)
+                        }
+
+                        Spacer().frame(width: 0)
+                        // Bottom row keys
+                        HStack(spacing: 5) {
+                            ForEach(bottomRow, id: \.self) { key in
+                                KeyButton2(key: key, color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: keyboardMode == .letters ? $isShifted : .constant(false))
+                            }
+                        }
+                        Spacer().frame(width: 0)
+
+                        // Backspace key
+                        Button(action: {
+                            onKeyPress("⌫")
+                        }) {
+                            Text("⌫")
+                                .font(.system(size: 20, weight: .medium))
+                                .foregroundColor(.gray)
+                                .frame(height: 45)
+                                .frame(minWidth: 45)
+                                .background(Color.gray.opacity(0.2))
+                                .cornerRadius(4)
+                                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                        }
+                        .frame(width: 50)
                     }
-                    .frame(width: 50)
-                    
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 5)
+                    .onLongPressGesture {
+                        onKeyPress("⌫")
+                    }
+                    // Space bar and return row
+                    HStack(spacing: 5) {
+
+                        // Cycling mode button for letters/numbers/symbols
+                        Button(action: {
+                            switch keyboardMode {
+                            case .letters:
+                                keyboardMode = .numbers
+                            case .numbers:
+                                keyboardMode = .symbols
+                            case .symbols:
+                                keyboardMode = .letters
+                            case .emojis:
+                                keyboardMode = .letters
+                            }
+                        }) {
+                            Text(keyboardMode == .letters ? "123" : keyboardMode == .numbers ? "#+=" : "ABC")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.blue)
+                                .frame(height: 45)
+                                .frame(minWidth: 45)
+                                .background(Color.blue.opacity(0.2))
+                                .cornerRadius(4)
+                                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                        }
+                        .frame(width: 50)
+
+                        // Separate emoji button
+                        Button(action: {
+                            keyboardMode = .emojis
+                        }) {
+                            Text("😀")
+                                .font(.system(size: 20, weight: .medium))
+                                .foregroundColor(.orange)
+                                .frame(height: 45)
+                                .frame(minWidth: 45)
+                                .background(Color.orange.opacity(0.2))
+                                .cornerRadius(4)
+                                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                        }
+                        .frame(width: 50)
+
+                        // Space bar
+                        SpaceKeyButton2(key: "␣", color: Color.orange.opacity(0.2), onKeyPress: onKeyPress, isShifted: .constant(false))
+                            .frame(maxWidth: .infinity)
+
+                        Button(action: {
+                            onKeyPress("⏎")
+                        }) {
+                            Text("⏎")
+                                .font(.system(size: 20, weight: .medium))
+                                .foregroundColor(.gray)
+                                .frame(height: 45)
+                                .frame(minWidth: 45)
+                                .background(Color.gray.opacity(0.2))
+                                .cornerRadius(4)
+                                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                        }
+                        .frame(width: 50)
+
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal , 5)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal , 5)
             }
         }
         .padding(.vertical,10)
