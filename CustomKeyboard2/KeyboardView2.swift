@@ -307,30 +307,59 @@ struct KeyboardView2: View {
                         
                         // Space bar and return row
                         HStack(spacing: 4) {
-                            // Cycling mode button for letters/numbers/symbols
-                            Button(action: {
-                                switch keyboardMode {
-                                case .letters:
-                                    keyboardMode = .numbers
-                                case .numbers:
-                                    keyboardMode = .symbols
-                                case .symbols:
-                                    keyboardMode = .letters
-                                case .emojis:
-                                    keyboardMode = .letters
+                            // ABC/123 toggle button
+                            if keyboardMode != .symbols {
+                                Button(action: {
+                                    keyboardMode = (keyboardMode == .letters) ? .numbers : .letters
+                                    showPeriodPopup = false
+                                }) {
+                                    Text(keyboardMode == .letters ? "123" : "ABC")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(.black)
+                                        .frame(height: 45)
+                                        .frame(minWidth: 45)
+                                        .background(Color.gray.opacity(0.2))
+                                        .cornerRadius(4)
+                                        .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
                                 }
-                                showPeriodPopup = false
-                            }) {
-                                Text(keyboardMode == .letters ? "123" : keyboardMode == .numbers ? "#+=" : "ABC")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.blue)
-                                    .frame(height: 45)
-                                    .frame(minWidth: 45)
-                                    .background(Color.blue.opacity(0.2))
-                                    .cornerRadius(4)
-                                    .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                                .frame(width: 50)
                             }
-                            .frame(width: 50)
+
+                            // ABC button for symbols mode
+                            if keyboardMode == .symbols {
+                                Button(action: {
+                                    keyboardMode = .letters
+                                    showPeriodPopup = false
+                                }) {
+                                    Text("ABC")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(.black)
+                                        .frame(height: 45)
+                                        .frame(minWidth: 45)
+                                        .background(Color.gray.opacity(0.2))
+                                        .cornerRadius(4)
+                                        .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                                }
+                                .frame(width: 50)
+                            }
+
+                            // #+= button (shown in numbers and symbols modes)
+                            if keyboardMode == .numbers || keyboardMode == .symbols {
+                                Button(action: {
+                                    keyboardMode = (keyboardMode == .numbers) ? .symbols : .numbers
+                                    showPeriodPopup = false
+                                }) {
+                                    Text(keyboardMode == .numbers ? "#+=" : "123")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(.black)
+                                        .frame(height: 45)
+                                        .frame(minWidth: 45)
+                                        .background(Color.gray.opacity(0.2))
+                                        .cornerRadius(4)
+                                        .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                                }
+                                .frame(width: 50)
+                            }
                             
                             // Separate emoji button
                             
