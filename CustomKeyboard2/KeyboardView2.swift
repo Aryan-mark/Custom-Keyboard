@@ -20,9 +20,9 @@ struct KeyboardView2: View {
     @State private var isShifted = false
     @State private var keyboardMode: KeyboardMode = .letters
     @State private var showPeriodPopup = false
+    @State private var isCapsLocked = false
     
     let color = Color.backgroundKeyboard
-    // Keyboard layouts
     
     let topCapsCharacter = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
     let topSmallCharacter = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
@@ -70,7 +70,7 @@ struct KeyboardView2: View {
     var topRow: [String] {
         switch keyboardMode {
         case .letters:
-            return isShifted ? topCapsCharacter : topSmallCharacter
+            return (isShifted || isCapsLocked) ? topCapsCharacter : topSmallCharacter
         case .numbers:
             return numberRow
         case .symbols:
@@ -83,7 +83,7 @@ struct KeyboardView2: View {
     var middleRow: [String] {
         switch keyboardMode {
         case .letters:
-            return isShifted ? middleCapsCharacter : middleSmallCharacter
+            return (isShifted || isCapsLocked) ? middleCapsCharacter : middleSmallCharacter
         case .numbers:
             return symbolRow2
         case .symbols:
@@ -96,7 +96,7 @@ struct KeyboardView2: View {
     var bottomRow: [String] {
         switch keyboardMode {
         case .letters:
-            return isShifted ? bottomCapsCharacter : bottomSmallCharacter
+            return (isShifted || isCapsLocked) ? bottomCapsCharacter : bottomSmallCharacter
         case .numbers:
             return symbolRow3
         case .symbols:
@@ -223,7 +223,7 @@ struct KeyboardView2: View {
                     VStack(alignment: .leading , spacing: 10){
                         HStack(spacing: 4) {
                             ForEach(topRow, id: \.self) { key in
-                                KeyButton2(key: key, color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: keyboardMode == .letters ? $isShifted : .constant(false), showPeriodPopup: $showPeriodPopup)
+                                KeyButton2(key: key, color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: keyboardMode == .letters ? $isShifted : .constant(false), showPeriodPopup: $showPeriodPopup, isCapsLocked: $isCapsLocked)
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -232,7 +232,7 @@ struct KeyboardView2: View {
                         // Middle row (ASDF...)
                         HStack(spacing: 4) {
                             ForEach(middleRow, id: \.self) { key in
-                                KeyButton2(key: key,color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: $isShifted,showPeriodPopup: $showPeriodPopup)
+                                KeyButton2(key: key,color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: $isShifted,showPeriodPopup: $showPeriodPopup,isCapsLocked: $isCapsLocked)
                             }
                         }
                         .frame(maxWidth: .infinity,alignment: .leading)
@@ -242,26 +242,42 @@ struct KeyboardView2: View {
                         HStack(spacing: 4) {
                             if keyboardMode == .letters {
                                 Button(action: {
-                                    isShifted.toggle()
+                                    if isCapsLocked {
+                                        isCapsLocked = false
+                                        isShifted = false
+                                    } else {
+                                        isShifted.toggle()
+                                    }
                                     showPeriodPopup = false
                                 }) {
-                                    Text("⇧")
+                                    Text(isCapsLocked || isShifted ? "⇪" : "⇧")
                                         .font(.system(size: 20, weight: .medium))
-                                        .foregroundColor(isShifted ? .blue : .gray)
+                                        .foregroundColor(isCapsLocked ? .blue : isShifted ? .blue : .gray)
                                         .frame(height: 45)
                                         .frame(minWidth: 45)
-                                        .background(isShifted ? Color.blue.opacity(0.2) : Color.gray.opacity(0.2))
+                                        .background(isCapsLocked ? Color.blue.opacity(0.2) : isShifted ? Color.blue.opacity(0.2) : Color.gray.opacity(0.2))
                                         .cornerRadius(4)
                                         .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
                                 }
                                 .frame(width: 50)
+                                .simultaneousGesture(
+                                    TapGesture(count: 2)
+                                        .onEnded { _ in
+                                            // Double click - turn caps lock ON (only when it's OFF)
+                                            if !isCapsLocked {
+                                                isCapsLocked = true
+                                                isShifted = false // Turn off regular shift when caps lock turns on
+                                                showPeriodPopup = false
+                                            }
+                                        }
+                                )
                             }
                             
                             Spacer().frame(width: 0)
                             // Bottom row keys
                             HStack(spacing: 4) {
                                 ForEach(bottomRow, id: \.self) { key in
-                                    KeyButton2(key: key, color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: keyboardMode == .letters ? $isShifted : .constant(false), showPeriodPopup: $showPeriodPopup)
+                                    KeyButton2(key: key, color: Color.pink.opacity(0.2), onKeyPress: onKeyPress, isShifted: keyboardMode == .letters ? $isShifted : .constant(false), showPeriodPopup: $showPeriodPopup, isCapsLocked: $isCapsLocked)
                                 }
                             }
                             Spacer().frame(width: 0)
@@ -351,7 +367,7 @@ struct KeyboardView2: View {
                             .padding(.leading,4)
                             
                             // Space bar
-                            SpaceKeyButton2(key: "␣", color: Color.orange.opacity(0.2), onKeyPress: onKeyPress, isShifted: .constant(false), showPeriodPopup: $showPeriodPopup)
+                            SpaceKeyButton2(key: "␣", color: Color.orange.opacity(0.2), onKeyPress: onKeyPress, isShifted: .constant(false), showPeriodPopup: $showPeriodPopup, isCapsLocked: $isCapsLocked)
                                 .frame(maxWidth: .infinity)
                             
                             Button(action: {
@@ -387,13 +403,14 @@ struct KeyButton2: View {
     let onKeyPress: (String) -> Void
     @Binding var isShifted: Bool
     @Binding var showPeriodPopup: Bool
+    @Binding var isCapsLocked: Bool
 
     var body: some View {
         Button(action: {
             onKeyPress(key)
             showPeriodPopup = false
-            // If shift is on and this is a letter, turn off shift after typing
-            if isShifted && key.rangeOfCharacter(from: .letters) != nil {
+            // If shift is on and this is a letter and caps lock is not enabled, turn off shift after typing
+            if isShifted && !isCapsLocked && key.rangeOfCharacter(from: .letters) != nil {
                 isShifted = false
             }
         }) {
@@ -415,6 +432,7 @@ struct SpaceKeyButton2: View {
     let onKeyPress: (String) -> Void
     @Binding var isShifted: Bool
     @Binding var showPeriodPopup: Bool
+    @Binding var isCapsLocked: Bool
 
     var body: some View {
         Button(action: {
@@ -443,6 +461,7 @@ struct SpecialKeyButton2: View {
     let color: Color
     let onKeyPress: (String) -> Void
     @Binding var showPeriodPopup: Bool
+    @Binding var isCapsLocked: Bool
 
     var body: some View {
         Button(action: {
