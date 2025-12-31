@@ -24,58 +24,16 @@ struct KeyboardView2: View {
     @State private var showSettings = false
     
     let color = Color.backgroundKeyboard
-    
-    let topCapsCharacter = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
-    let topSmallCharacter = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
-    let middleCapsCharacter = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
-    let middleSmallCharacter = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
-    let bottomCapsCharacter = ["Z", "X", "C", "V", "B", "N", "M"]
-    let bottomSmallCharacter = ["z", "x", "c", "v", "b", "n", "m"]
-    
-    let numberRow = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-    let symbolRow1 = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"]
-    let symbolRow2 = ["-", "_", "=", "+", "[", "]", "{", "}", "\\", "|"]
-    let symbolRow3 = [":", ";", "\"", "'", "<", ">", ",", ".", "?", "/"]
-    let popUpSymbol = [".", ",", "?", "$"]
-    
-    // Comprehensive iPhone emoji dataset
-    let emojis: [[String]] = [
-        // Smileys & People
-        ["😀", "😃", "😄", "😁", "😆", "😅", "🤣", "😂", "🙂", "🙃", "😉", "😊", "😇", "🥰", "😍", "🤩", "😘", "😗", "☺️", "😚", "😙", "🥲", "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔", "🤐", "🤨", "😐", "😑", "😶", "😏", "😒", "🙄", "😬", "🤥", "😔", "😪", "🤤", "😴", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵", "🥶", "🥴", "😵", "🤯", "🤠", "🥳", "🥸", "😎", "🤓", "🧐", "😕", "😟", "🙁", "☹️", "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😢", "😭", "😱", "😖", "😣", "😞", "😓", "😩", "😫", "🥱", "😤", "😡", "😠", "🤬", "😈", "👿", "💀", "☠️", "💩", "🤡", "👹", "👺", "👻", "👽", "👾", "🤖", "😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾"],
-        
-        // People & Gestures
-        ["👋", "🤚", "🖐️", "✋", "🖖", "👌", "🤌", "🤏", "✌️", "🤞", "🤟", "🤘", "🤙", "👈", "👉", "👆", "🖕", "👇", "☝️", "👍", "👎", "👊", "✊", "🤛", "🤜", "👏", "🙌", "👐", "🤲", "🤝", "🙏", "✍️", "💅", "🤳", "💪", "🦾", "🦿", "🦵", "🦶", "👂", "🦻", "👃", "🧠", "🫀", "🫁", "🦷", "🦴", "👀", "👁️", "👅", "👄", "👶", "🧒", "👦", "👧", "🧑", "👱", "👨", "🧔", "👩", "🧓", "👴", "👵", "🙍", "🙎", "🙅", "🙆", "💁", "🙋", "🧏", "🙇", "🤦", "🤷", "👮", "🕵️", "💂", "🥷", "👷", "🤴", "👸", "👳", "👲", "🧕", "🤵", "🤰", "🤱", "👼", "🎅", "🤶", "🦸", "🦹", "🧙", "🧚", "🧛", "🧜", "🧝", "🧞", "🧟", "💆", "💇", "🚶", "🧍", "🧎", "👨‍🦯", "👩‍🦯", "👨‍🦼", "👩‍🦼", "👨‍🦽", "👩‍🦽", "🏃", "💃", "🕺", "🕴️", "👯", "🧖", "🧗", "🤺", "🏇", "⛷️", "🏂", "🏌️", "🏄", "🚣", "🏊", "⛹️", "🏋️", "🚴", "🚵", "🤼", "🤽", "🤹", "🧘", "🛀", "🛌"],
-        
-        // Animals & Nature
-        ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷", "🐽", "🐸", "🐵", "🙈", "🙉", "🙊", "🐒", "🐔", "🐧", "🐦", "🐤", "🐣", "🐥", "🦆", "🦅", "🦉", "🦇", "🐺", "🐗", "🐴", "🦄", "🐝", "🐛", "🦋", "🐌", "🐞", "🐜", "🦗", "🕷️", "🦂", "🐢", "🐍", "🦎", "🦖", "🦕", "🐙", "🦑", "🦐", "🦞", "🦀", "🐡", "🐠", "🐟", "🐬", "🐳", "🐋", "🦈", "🐊", "🐅", "🐆", "🦓", "🦍", "🦧", "🐘", "🦛", "🦏", "🐪", "🐫", "🦒", "🦘", "🐃", "🐂", "🐄", "🐎", "🐖", "🐏", "🐑", "🦙", "🐐", "🦌", "🐕", "🐩", "🦮", "🐕‍🦺", "🐈", "🐈‍⬛", "🐓", "🦃", "🦚", "🦜", "🦢", "🦩", "🕊️", "🐇", "🦝", "🦨", "🦡", "🦦", "🦥", "🐁", "🐀", "🐿️", "🦔", "🐾", "🐉", "🐲", "🌵", "🎄", "🌲", "🌳", "🌴", "🪵", "🌱", "🌿", "☘️", "🍀", "🎋", "🎍", "🌾", "🌸", "🌺", "🌻", "🌷", "🌹", "🥀", "🌼", "🍄", "🌰"],
-        
-        // Food & Drink
-        ["🍎", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥥", "🥝", "🍅", "🍆", "🥑", "🥦", "🥬", "🥒", "🌶️", "🫑", "🌽", "🥕", "🫒", "🧄", "🧅", "🥔", "🍠", "🥐", "🥖", "🍞", "🥨", "🥯", "🧀", "🥚", "🍳", "🧈", "🥞", "🧇", "🥓", "🥩", "🍗", "🍖", "🦴", "🌭", "🍔", "🍟", "🍕", "🫓", "🥙", "🌮", "🌯", "🫔", "🥗", "🥘", "🫕", "🍝", "🍜", "🍲", "🍛", "🍣", "🍱", "🥟", "🦪", "🍤", "🍙", "🍚", "🍘", "🍥", "🥠", "🥮", "🍢", "🍡", "🍧", "🍨", "🍦", "🥧", "🧁", "🍰", "🎂", "🍮", "🍭", "🍬", "🍫", "🍿", "🍩", "🍪", "🌰", "🥜", "🍯", "🥛", "🍼", "☕", "🫖", "🍵", "🧃", "🥤", "🧋", "🍶", "🍺", "🍻", "🥂", "🍷", "🥃", "🍸", "🍹", "🧉", "🍾"],
-        
-        // Activities & Sports
-        ["⚽", "🏀", "🏈", "⚾", "🥎", "🎾", "🏐", "🏉", "🥏", "🎱", "🪀", "🏓", "🏸", "🏒", "🏑", "🥍", "🏏", "🪃", "🥅", "⛳", "🪁", "🏹", "🎣", "🤿", "🥊", "🥋", "🎽", "🛹", "🛷", "⛸️", "🥌", "🎿", "⛷️", "🏂", "🪂", "🏋️", "🤼", "🤸", "⛹️", "🤺", "🧘", "🏃", "🚶", "🧎", "🧍", "🤽", "🤾", "🏇", "🏊", "🚣", "🏄", "🚵", "🚴", "🎪", "🎭", "🩰", "🎨", "🎬", "🎤", "🎧", "🎼", "🎹", "🥁", "🪘", "🎷", "🎺", "🪗", "🎸", "🪕", "🎻", "🎲", "♠️", "♥️", "♦️", "♣️", "🃏", "🀄", "🎴", "🎯", "🎳", "🎮", "🕹️", "🎰", "🧩"],
-        
-        // Travel & Places
-        ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🚚", "🚛", "🚜", "🏍️", "🛵", "🚲", "🛴", "🛹", "🚁", "🚟", "🚠", "🛤️", "🛣️", "🗺️", "⛽", "🚨", "🚥", "🚦", "🛑", "🚧", "⚓", "⛵", "🛶", "🚤", "🛳️", "⛴️", "🛥️", "🚢", "✈️", "🛩️", "🛫", "🛬", "🪂", "💺", "🚀", "🛸", "🚡", "🏔️", "⛰️", "🌋", "🗻", "🏕️", "🏖️", "🏜️", "🏝️", "🏞️", "🏟️", "🏛️", "🏗️", "🧱", "🏘️", "🏚️", "🏠", "🏡", "🏢", "🏣", "🏤", "🏥", "🏦", "🏨", "🏩", "🏪", "🏫", "🏬", "🏭", "🏯", "🏰", "💒", "🗼", "🗽", "⛪", "🕌", "🛕", "🕍", "⛩️", "🕋", "⛲", "⛺", "🌁", "🌃", "🏙️", "🌄", "🌅", "🌆", "🌇", "🌉", "♨️", "🎠", "🎡", "🎢", "💈", "🎪"],
-        
-        // Objects
-        ["⌚", "📱", "📲", "💻", "⌨️", "🖥️", "🖨️", "🖱️", "🖲️", "🕹️", "🗜️", "💽", "💾", "💿", "📀", "📼", "📷", "📸", "📹", "🎥", "📽️", "🎞️", "📞", "☎️", "📟", "📠", "📺", "📻", "🎙️", "🎚️", "🎛️", "🧭", "⏱️", "⏲️", "⏰", "🕰️", "⌛", "⏳", "📡", "🔋", "🔌", "💡", "🔦", "🕯️", "🪔", "🧯", "🛢️", "💸", "💵", "💴", "💶", "💷", "💰", "💳", "💎", "⚖️", "🪜", "🧰", "🧲", "⚗️", "🧪", "🧫", "🧬", "🔬", "🔭", "💉", "🩸", "💊", "🩹", "🩼", "🩺", "🚪", "🪑", "🛋️", "🛏️", "🛌", "🚽", "🪠", "🚿", "🛁", "🪒", "🧴", "🧷", "🧹", "🧺", "🧽", "🧼", "🪣", "🪥"],
-        
-        // Symbols
-        ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💔", "❤️‍🔥", "❤️‍🩹", "💕", "💞", "💓", "💗", "💖", "💘", "💝", "💟", "☮️", "✝️", "☪️", "🕉️", "☸️", "✡️", "🔯", "🕎", "☯️", "☦️", "🛐", "⛎", "♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓", "🆔", "⚛️", "🉑", "☢️", "☣️", "📴", "📳", "🈶", "🈚", "🈸", "🈺", "🈷️", "✴️", "🆚", "💮", "🉐", "㊙️", "㊗️", "🈴", "🔞", "📵", "🚳", "🚭", "🚯", "🚱", "🚷", "♿", "🅿️", "🈂️", "🛂", "🛃", "🛄", "🛅", "⚠️", "🚸", "⛔", "🚫", "⬆️", "↗️", "➡️", "↘️", "⬇️", "↙️", "⬅️", "↖️", "↕️", "↔️", "↩️", "↪️", "⤴️", "⤵️", "🔃", "🔄", "🔙", "🔚", "🔛", "🔜", "🔝", "🔀", "🔁", "🔂", "▶️", "⏩", "⏭️", "⏯️", "◀️", "⏪", "⏮️", "🔼", "⏫", "🔽", "⏬", "⏸️", "⏹️", "⏺️", "⏏️", "🎦", "🔅", "🔆", "📶", "📳", "📴", "♀️", "♂️", "⚧️", "✖️", "➕", "➖", "➗", "🟰", "♾️", "‼️", "⁉️", "❓", "❔", "❕", "❗", "〰️", "💱", "💲", "⚕️", "♻️", "⚜️", "🔱", "📛", "🔰", "⭕", "✅", "☑️", "✔️", "❌", "❎", "➰", "➿", "〽️", "✳️", "✴️", "❇️", "©️", "®️", "™️", "🔟", "🔢"],
-        
-        // Flags
-        ["🏁", "🚩", "🎌", "🏴", "🏳️", "🏳️‍🌈", "🏳️‍⚧️", "🏴‍☠️", "🇦🇫", "🇦🇱", "🇩🇿", "🇦🇸", "🇦🇩", "🇦🇴", "🇦🇮", "🇦🇶", "🇦🇬", "🇦🇷", "🇦🇲", "🇦🇼", "🇦🇺", "🇦🇹", "🇦🇿", "🇧🇸", "🇧🇭", "🇧🇩", "🇧🇧", "🇧🇾", "🇧🇪", "🇧🇿", "🇧🇯", "🇧🇲", "🇧🇹", "🇧🇴", "🇧🇦", "🇧🇼", "🇧🇷", "🇧🇳", "🇧🇬", "🇧🇫", "🇧🇮", "🇰🇭", "🇨🇲", "🇨🇦", "🇨🇻", "🇰🇾", "🇨🇫", "🇹🇩", "🇨🇱", "🇨🇳", "🇨🇴", "🇰🇲", "🇨🇬", "🇨🇩", "🇨🇰", "🇨🇷", "🇭🇷", "🇨🇺", "🇨🇾", "🇨🇿", "🇩🇰", "🇩🇯", "🇩🇲", "🇩🇴", "🇪🇨", "🇪🇬", "🇸🇻", "🇬🇶", "🇪🇷", "🇪🇪", "🇸🇿", "🇪🇹", "🇫🇰", "🇫🇴", "🇫🇯", "🇫🇮", "🇫🇷", "🇬🇫", "🇵🇫", "🇹🇫", "🇬🇦", "🇬🇲", "🇬🇪", "🇩🇪", "🇬🇭", "🇬🇮", "🇬🇷", "🇬🇱", "🇬🇩", "🇬🇵", "🇬🇺", "🇬🇹", "🇬🇬", "🇬🇳", "🇬🇼", "🇬🇾", "🇭🇹", "🇭🇳", "🇭🇰", "🇭🇺", "🇮🇸", "🇮🇳", "🇮🇩", "🇮🇷", "🇮🇶", "🇮🇪", "🇮🇲", "🇮🇱", "🇮🇹", "🇨🇮", "🇯🇲", "🇯🇵", "🇯🇪", "🇯🇴", "🇰🇿", "🇰🇪", "🇰🇮", "🇰🇵", "🇰🇷", "🇰🇼", "🇰🇬", "🇱🇦", "🇱🇻", "🇱🇧", "🇱🇸", "🇱🇷", "🇱🇾", "🇱🇮", "🇱🇹", "🇱🇺", "🇲🇴", "🇲🇰", "🇲🇬", "🇲🇼", "🇲🇾", "🇲🇻", "🇲🇱", "🇲🇹", "🇲🇭", "🇲🇶", "🇲🇷", "🇲🇺", "🇾🇹", "🇲🇽", "🇫🇲", "🇲🇩", "🇲🇨", "🇲🇳", "🇲🇪", "🇲🇸", "🇲🇦", "🇲🇿", "🇲🇲", "🇳🇦", "🇳🇷", "🇳🇵", "🇳🇱", "🇳🇨", "🇳🇿", "🇳🇮", "🇳🇪", "🇳🇬", "🇳🇺", "🇳🇫", "🇲🇵", "🇳🇴", "🇴🇲", "🇵🇰", "🇵🇼", "🇵🇸", "🇵🇦", "🇵🇬", "🇵🇾", "🇵🇪", "🇵🇭", "🇵🇳", "🇵🇱", "🇵🇹", "🇵🇷", "🇶🇦", "🇷🇪", "🇷🇴", "🇷🇺", "🇷🇼", "🇼🇸", "🇸🇲", "🇸🇹", "🇸🇦", "🇸🇳", "🇷🇸", "🇸🇨", "🇸🇱", "🇸🇬", "🇸🇰", "🇸🇮", "🇸🇧", "🇸🇴", "🇿🇦", "🇬🇸", "🇪🇸", "🇱🇰", "🇸🇩", "🇸🇷", "🇸🇯", "🇸🇪", "🇨🇭", "🇸🇾", "🇹🇼", "🇹🇯", "🇹🇿", "🇹🇭", "🇹🇱", "🇹🇬", "🇹🇰", "🇹🇴", "🇹🇹", "🇹🇳", "🇹🇷", "🇹🇲", "🇹🇨", "🇹🇻", "🇻🇮", "🇺🇬", "🇺🇦", "🇦🇪", "🇬🇧", "🇺🇸", "🇺🇾", "🇺🇿", "🇻🇺", "🇻🇦", "🇻🇪", "🇻🇳", "🇻🇬", "🇼🇫", "🇪🇭", "🇾🇪", "🇿🇲", "🇿🇼"]
-    ]
+    let utils = Utils()
     
     var topRow: [String] {
         switch keyboardMode {
         case .letters:
-            return (isShifted || isCapsLocked) ? topCapsCharacter : topSmallCharacter
+            return (isShifted || isCapsLocked) ? utils.topCapsCharacter : utils.topSmallCharacter
         case .numbers:
-            return numberRow
+            return utils.numberRow
         case .symbols:
-            return symbolRow1
+            return utils.symbolRow1
         case .emojis:
             return []
         }
@@ -84,11 +42,11 @@ struct KeyboardView2: View {
     var middleRow: [String] {
         switch keyboardMode {
         case .letters:
-            return (isShifted || isCapsLocked) ? middleCapsCharacter : middleSmallCharacter
+            return (isShifted || isCapsLocked) ? utils.middleCapsCharacter : utils.middleSmallCharacter
         case .numbers:
-            return symbolRow2
+            return utils.symbolRow2
         case .symbols:
-            return symbolRow3
+            return utils.symbolRow3
         case .emojis:
             return []
         }
@@ -97,80 +55,22 @@ struct KeyboardView2: View {
     var bottomRow: [String] {
         switch keyboardMode {
         case .letters:
-            return (isShifted || isCapsLocked) ? bottomCapsCharacter : bottomSmallCharacter
+            return (isShifted || isCapsLocked) ? utils.bottomCapsCharacter : utils.bottomSmallCharacter
         case .numbers:
-            return symbolRow3
+            return utils.symbolRow3
         case .symbols:
-            return symbolRow2
+            return utils.symbolRow2
         case .emojis:
             return []
         }
     }
     
-    // Settings view
-    var settingsView: some View {
-        VStack() {
-            HStack {
-                Button(action: {
-                    showSettings = false
-                }) {
-                    Image(systemName: "chevron.left")
-                        .foregroundColor(.blue)
-                        .font(.system(size: 20, weight: .medium))
-                }
-
-                Spacer()
-
-                Text("Settings")
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(.black)
-
-                Spacer()
-            }
-            .padding(.horizontal)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white)
-    }
-
-    // Period popup view
-    var periodPopupView: some View {
-        ZStack {
-            Color.black.opacity(0.01)
-                .onTapGesture {
-                    showPeriodPopup = false
-                }
-            // Popup content
-            HStack(spacing: 4) {
-                ForEach(popUpSymbol, id: \.self) { char in
-                    Button(action: {
-                        onKeyPress(char)
-                        showPeriodPopup = false
-                    }) {
-                        Text(char)
-                            .font(.system(size: 20, weight: .medium))
-                            .foregroundColor(.black)
-                            .frame(width: 36, height: 44)
-                            .background(Color.pink.opacity(0.2))
-                            .cornerRadius(4)
-                            .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
-                    }
-                }
-            }
-            .padding(12)
-            .background(Color.white)
-            .cornerRadius(12)
-            .offset(x:40, y: -70) // Position above the button
-        }
-    }
-    
-    // Emoji View
     var emojiView: some View {
         VStack(spacing: 5) {
             // Horizontal scrolling emoji rows
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: Array(repeating: GridItem(.flexible()), count: 5), spacing: 5) {
-                    ForEach(emojis.flatMap { $0 }, id: \.self) { emoji in
+                    ForEach(utils.emojis.flatMap { $0 }, id: \.self) { emoji in
                         Button(action: {
                             onKeyPress(emoji)
                             showPeriodPopup = false
@@ -191,7 +91,7 @@ struct KeyboardView2: View {
     var body: some View {
         ZStack {
             if showSettings {
-                SettingsUIView()
+                SettingsUIView(showSettings: $showSettings)
             } else {
             if keyboardMode == .emojis {
                 // Emoji keyboard
@@ -231,6 +131,7 @@ struct KeyboardView2: View {
                     HStack{
                         Button(action: {
                             showSettings = true
+                            showPeriodPopup = false
                         }) {
                             Image(systemName: "gear")
                                 .foregroundStyle(.black)
@@ -418,8 +319,8 @@ struct KeyboardView2: View {
                                 )
                                 
                                 if showPeriodPopup {
-                                    periodPopupView
-                                        .zIndex(0) // Ensure popup appears above other elements
+                                    SymbolPopUpViewUIView(showPeriodPopup: $showPeriodPopup, onKeyPress: onKeyPress)
+                                        .zIndex(0)
                                 }
                             }
                             .frame(maxWidth: 36)

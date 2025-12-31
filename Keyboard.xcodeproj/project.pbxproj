@@ -85,6 +85,7 @@
 				KeyboardView2.swift,
 				SettingsUIView.swift,
 				SymbolPopUpViewUIView.swift,
+				Utils/constant.swift,
 			);
 			target = 8BD1B03F2EFBFC7400A29D02 /* Keyboard */;
 		};
