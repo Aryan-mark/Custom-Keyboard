@@ -21,6 +21,7 @@ struct KeyboardView2: View {
     @State private var keyboardMode: KeyboardMode = .letters
     @State private var showPeriodPopup = false
     @State private var isCapsLocked = false
+    @State private var showSettings = false
     
     let color = Color.backgroundKeyboard
     
@@ -106,6 +107,32 @@ struct KeyboardView2: View {
         }
     }
     
+    // Settings view
+    var settingsView: some View {
+        VStack() {
+            HStack {
+                Button(action: {
+                    showSettings = false
+                }) {
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.blue)
+                        .font(.system(size: 20, weight: .medium))
+                }
+
+                Spacer()
+
+                Text("Settings")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(.black)
+
+                Spacer()
+            }
+            .padding(.horizontal)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
+    }
+
     // Period popup view
     var periodPopupView: some View {
         ZStack {
@@ -163,6 +190,9 @@ struct KeyboardView2: View {
     
     var body: some View {
         ZStack {
+            if showSettings {
+                SettingsUIView()
+            } else {
             if keyboardMode == .emojis {
                 // Emoji keyboard
                 VStack(spacing: 0) {
@@ -200,7 +230,7 @@ struct KeyboardView2: View {
                 VStack(alignment: .leading,spacing: 6) {
                     HStack{
                         Button(action: {
-                            
+                            showSettings = true
                         }) {
                             Image(systemName: "gear")
                                 .foregroundStyle(.black)
@@ -419,6 +449,7 @@ struct KeyboardView2: View {
                         .padding(.horizontal , 3)
                     }
                 }
+            }
             }
         }
         .padding(.vertical,10)
