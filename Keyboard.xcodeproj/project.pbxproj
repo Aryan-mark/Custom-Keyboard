@@ -58,9 +58,12 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				KeyboardView2.swift,
-				SettingsUIView.swift,
-				SymbolPopUpViewUIView.swift,
 				Utils/constant.swift,
+				Widgets/CustomButtonsView.swift,
+				Widgets/Emojis.swift,
+				Widgets/EmojiUIView.swift,
+				Widgets/SettingsUIView.swift,
+				Widgets/SymbolPopUpViewUIView.swift,
 			);
 			target = 8BD1B03F2EFBFC7400A29D02 /* Keyboard */;
 		};

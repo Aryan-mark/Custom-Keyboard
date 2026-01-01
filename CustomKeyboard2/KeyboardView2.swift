@@ -65,29 +65,6 @@ struct KeyboardView2: View {
         }
     }
     
-    var emojiView: some View {
-        VStack(spacing: 5) {
-            // Horizontal scrolling emoji rows
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHGrid(rows: Array(repeating: GridItem(.flexible()), count: 5), spacing: 5) {
-                    ForEach(utils.emojis.flatMap { $0 }, id: \.self) { emoji in
-                        Button(action: {
-                            onKeyPress(emoji)
-                            showPeriodPopup = false
-                        }) {
-                            Text(emoji)
-                                .font(.system(size: 32))
-                                .frame(width: 32, height: 32)
-                                .cornerRadius(8)
-                        }
-                    }
-                }
-                .padding(.horizontal, 5)
-            }
-        }
-        .frame(height: 210)
-    }
-    
     var body: some View {
         ZStack {
             if showSettings {
@@ -95,36 +72,7 @@ struct KeyboardView2: View {
             } else {
             if keyboardMode == .emojis {
                 // Emoji keyboard
-                VStack(spacing: 0) {
-                    emojiView
-                    
-                    // Bottom row with back button and space
-                    HStack() {
-                        // Back to letters button
-                        Button(action: {
-                            keyboardMode = .letters
-                            showPeriodPopup = false // Dismiss popup when switching modes
-                        }) {
-                            Text("ABC")
-                                .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.blue)
-                        }.padding(.leading,3)
-                        
-                        // Backspace
-                        Button(action: {
-                            onKeyPress("⌫")
-                            showPeriodPopup = false
-                        }) {
-                            Text("⌫")
-                                .font(.system(size: 20, weight: .medium))
-                                .foregroundColor(.gray)
-                        }
-                        .frame(maxWidth: .infinity,alignment: .trailing)
-                        .padding(.trailing,3)
-                    }
-                    .padding(.horizontal, 5)
-                    .padding(.top ,12)
-                }.padding(.top,8)
+              EmojiUIView(onKeyPress: onKeyPress, showPeriodPopup: $showPeriodPopup, keyboardMode: $keyboardMode)
             } else {
                 // Regular keyboard
                 VStack(alignment: .leading,spacing: 6) {
@@ -181,7 +129,7 @@ struct KeyboardView2: View {
                                     }
                                     showPeriodPopup = false
                                 }) {
-                                    Text(isCapsLocked || isShifted ? "⇪" : "⇧")
+                                    Text(isCapsLocked ? "⇪" : "⇧")
                                         .font(.system(size: 20, weight: .medium))
                                         .foregroundColor(isCapsLocked ? .blue : isShifted ? .blue : .gray)
                                         .frame(height: 45)
@@ -357,91 +305,6 @@ struct KeyboardView2: View {
         .background(color)
     }
 }
-// Regular key button
-struct KeyButton2: View {
-    let key: String
-    let color: Color
-    let onKeyPress: (String) -> Void
-    @Binding var isShifted: Bool
-    @Binding var showPeriodPopup: Bool
-    @Binding var isCapsLocked: Bool
-
-    var body: some View {
-        Button(action: {
-            onKeyPress(key)
-            showPeriodPopup = false
-            // If shift is on and this is a letter and caps lock is not enabled, turn off shift after typing
-            if isShifted && !isCapsLocked && key.rangeOfCharacter(from: .letters) != nil {
-                isShifted = false
-            }
-        }) {
-            Text(key)
-                .font(.system(size: 20, weight: .medium))
-                .foregroundColor(.black)
-                .frame(height: 44)
-                .frame(maxWidth: .infinity)
-                .background(color)
-                .cornerRadius(4)
-                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
-        }
-    }
-}
-
-struct SpaceKeyButton2: View {
-    let key: String
-    let color: Color
-    let onKeyPress: (String) -> Void
-    @Binding var isShifted: Bool
-    @Binding var showPeriodPopup: Bool
-    @Binding var isCapsLocked: Bool
-
-    var body: some View {
-        Button(action: {
-            onKeyPress(key)
-            showPeriodPopup = false
-            // If shift is on and this is a letter, turn off shift after typing
-            if isShifted && key.rangeOfCharacter(from: .letters) != nil {
-                isShifted = false
-            }
-        }) {
-
-            Text(key)
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.black)
-                .frame(maxWidth: .infinity, maxHeight:  45)
-                .background(color)
-                .cornerRadius(4)
-                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
-        }
-    }
-}
-
-// Special key button (for backspace, shift, return, etc.)
-struct SpecialKeyButton2: View {
-    let key: String
-    let color: Color
-    let onKeyPress: (String) -> Void
-    @Binding var showPeriodPopup: Bool
-    @Binding var isCapsLocked: Bool
-
-    var body: some View {
-        Button(action: {
-            onKeyPress(key)
-            showPeriodPopup = false
-
-        }) {
-            Text(key)
-                .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.gray)
-                .frame(height: 40)
-                .frame(minWidth: 40)
-                .background(color)
-                .cornerRadius(4)
-                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
-        }
-    }
-}
-
 #Preview {
     KeyboardView2(onKeyPress: { key in
         print("Key pressed: \(key)")
