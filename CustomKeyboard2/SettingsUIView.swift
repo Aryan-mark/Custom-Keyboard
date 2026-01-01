@@ -23,61 +23,133 @@ struct SettingsUIView: View {
                         .frame(width: 12, height: 20)
                         .foregroundStyle(.black)
                 }
-                .padding(.horizontal)
                 
                 Text("Settings")
                     .font(.system(size: 20))
                     .bold()
                     .foregroundStyle(.black)
-                    .frame(maxWidth: .infinity,alignment: .leading)
+                    .padding(.leading, 12)
             }
-            .frame(maxWidth: .infinity,alignment: .top)
+            .frame(maxWidth: .infinity,alignment: .leading)
+            .padding(.horizontal)
             
             HStack{
-                Image(systemName: "sun.max.fill")
-                    .resizable()
-                    .frame(width: 22,height: 22)
-                    .foregroundStyle(.black)
+                VStack(alignment: .center){
+                    Image(systemName: "sun.max.fill")
+                        .resizable()
+                        .frame(width: 20,height: 20)
+                        .foregroundStyle(.black)
+                    
+                    Text("Themes")
+                        .font(.system(size: 16))
+                        .fontWeight(.medium)
+                        .foregroundStyle(.black)
+                        .padding(.leading,4)
+                }
+                .padding(10)
+                .frame(maxWidth: .infinity)
+                .background(Color.gray.opacity(0.3))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .frame(height: 50)
                 
-                Text("Themes")
-                    .font(.system(size: 18))
-                    .fontWeight(.medium)
-                    .foregroundStyle(.black)
-                    .padding(.leading,4)
+                VStack(alignment: .center){
+                    Image(systemName: "checkmark.circle")
+                        .resizable()
+                        .frame(width: 20,height: 20)
+                        .foregroundStyle(.black)
+                    
+                    Text("Auto Correction")
+                        .font(.system(size: 16))
+                        .fontWeight(.medium)
+                        .foregroundStyle(.black)
+                        .padding(.leading,7)
+                }
+                .padding(10)
+                .frame(maxWidth: .infinity)
+                .background(Color.gray.opacity(0.3))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .frame(height: 50)
                 
+                VStack(alignment: .center){
+                    Image(systemName: "text.bubble")
+                        .resizable()
+                        .frame(width: 20,height: 20)
+                        .foregroundStyle(.black)
+                    
+                    Text("Language")
+                        .font(.system(size: 16))
+                        .fontWeight(.medium)
+                        .foregroundStyle(.black)
+                        .padding(.leading,10)
+                }
+                .padding(10)
+                .frame(maxWidth: .infinity)
+                .background(Color.gray.opacity(0.3))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .frame(height: 50)
+            }
+            .padding(.horizontal)
+            .padding(.top,15)
+            
+            
+            HStack(alignment: .center){
+                VStack{
+                    Image(systemName: "lock.shield")
+                        .resizable()
+                        .frame(width: 20,height: 20)
+                        .foregroundStyle(.black)
+                    
+                    Text("Privacy")
+                        .font(.system(size: 16))
+                        .fontWeight(.medium)
+                        .foregroundStyle(.black)
+                        .padding(.leading,4)
+                }
+                .padding(10)
+                .frame(maxWidth: .infinity)
+                .background(.gray.opacity(0.3))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .frame(height: 50)
                 
-            }.padding(.horizontal)
-                .padding(.top,7)
-            HStack{
-                Image(systemName: "checkmark.circle")
-                    .resizable()
-                    .frame(width: 22,height: 22)
-                    .foregroundStyle(.black)
+                VStack{
+                    Image(systemName: "gear")
+                        .resizable()
+                        .frame(width: 20,height: 20)
+                        .foregroundStyle(.black)
+                    
+                    Text("Settings")
+                        .font(.system(size: 16))
+                        .fontWeight(.medium)
+                        .foregroundStyle(.black)
+                        .padding(.leading,4)
+                }
+                .padding(10)
+                .frame(maxWidth: .infinity)
+                .background(.gray.opacity(0.3))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .frame(height: 50)
                 
-                Text("Auto Correction")
-                    .font(.system(size: 18))
-                    .fontWeight(.medium)
-                    .foregroundStyle(.black)
-                    .padding(.leading,7)
+                VStack{
+                    Image(systemName: "info.circle")
+                        .resizable()
+                        .frame(width: 20,height: 20)
+                        .foregroundStyle(.black)
+                    
+                    Text("About")
+                        .font(.system(size: 16))
+                        .fontWeight(.medium)
+                        .foregroundStyle(.black)
+                        .padding(.leading,4)
+                }
+                .padding(10)
+                .frame(maxWidth: .infinity)
+                .background(.gray.opacity(0.3))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .frame(height: 50)
                 
             }
             .padding(.horizontal)
-            .padding(.top,7)
-            
-            HStack{
-                Image(systemName: "text.bubble")
-                    .resizable()
-                    .frame(width: 22,height: 22)
-                    .foregroundStyle(.black)
-                
-                Text("Language")
-                    .font(.system(size: 18))
-                    .fontWeight(.medium)
-                    .foregroundStyle(.black)
-                    .padding(.leading,10)
-                
-            }.padding(.horizontal)
-                .padding(.top,10)
+            .padding(.top,20)
         }
         .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .top)
     }
