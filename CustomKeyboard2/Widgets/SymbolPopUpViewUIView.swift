@@ -37,10 +37,9 @@ struct SymbolPopUpViewUIView: View {
                         }
                     }
                 }
-                .padding(12)
+                .padding(8)
                 .background(Color.white)
                 .cornerRadius(12)
-                .offset(x:40, y: -70) // Position above the button
             }
 
     }

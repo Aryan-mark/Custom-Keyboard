@@ -242,36 +242,28 @@ struct KeyboardView2: View {
                             
                             // Separate emoji button
                             
-                            ZStack {
-                                Button(action: {
-                                    if !showPeriodPopup {
-                                        onKeyPress(".")
-                                        showPeriodPopup = false
-                                    }
-                                }) {
-                                    Text(".")
-                                        .font(.system(size: 20, weight: .medium))
-                                        .foregroundColor(.black)
-                                        .frame(height: 44)
-                                        .frame(maxWidth: 36)
-                                        .background(Color.pink.opacity(0.2))
-                                        .cornerRadius(4)
-                                        .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                            Button(action: {
+                                if !showPeriodPopup {
+                                    onKeyPress(".")
+                                    showPeriodPopup = false
                                 }
-                                .frame(maxWidth: 36)
-                                .simultaneousGesture(
-                                    LongPressGesture(minimumDuration: 0.5, maximumDistance: 10)
-                                        .onEnded { _ in
-                                            showPeriodPopup = true
-                                        }
-                                )
-                                
-                                if showPeriodPopup {
-                                    SymbolPopUpViewUIView(showPeriodPopup: $showPeriodPopup, onKeyPress: onKeyPress)
-                                        .zIndex(0)
-                                }
+                            }) {
+                                Text(".")
+                                    .font(.system(size: 20, weight: .medium))
+                                    .foregroundColor(.black)
+                                    .frame(height: 44)
+                                    .frame(maxWidth: 36)
+                                    .background(Color.pink.opacity(0.2))
+                                    .cornerRadius(4)
+                                    .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
                             }
                             .frame(maxWidth: 36)
+                            .simultaneousGesture(
+                                LongPressGesture(minimumDuration: 0.5, maximumDistance: 10)
+                                    .onEnded { _ in
+                                        showPeriodPopup = true
+                                    }
+                            )
                             .padding(.leading,4)
                             
                             // Space bar
@@ -299,6 +291,16 @@ struct KeyboardView2: View {
                     }
                 }
             }
+            }
+
+            // Symbol popup overlay - positioned absolutely above keyboard
+            if showPeriodPopup {
+                GeometryReader { geometry in
+                    SymbolPopUpViewUIView(showPeriodPopup: $showPeriodPopup, onKeyPress: onKeyPress)
+                        .position(x: geometry.size.width * 0.30, y: geometry.size.height - 90)
+                        .zIndex(1000)
+                }
+                .edgesIgnoringSafeArea(.all)
             }
         }
         .padding(.vertical,10)
