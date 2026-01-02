@@ -62,6 +62,7 @@
 				Widgets/CustomButtonsView.swift,
 				Widgets/Emojis.swift,
 				Widgets/EmojiUIView.swift,
+				Widgets/KeyBoardUIView.swift,
 				Widgets/SettingsUIView.swift,
 				Widgets/SymbolPopUpViewUIView.swift,
 			);

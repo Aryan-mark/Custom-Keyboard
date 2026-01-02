@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct SymbolPopUpViewUIView: View {
-    
+
     @Binding var showPeriodPopup: Bool
     let onKeyPress: (String) -> (Void)
     let popUpSymbol = [".", ",", "?", "$"]
+    @ObservedObject var themeManager: ThemeManager
     
     var body: some View {
 
@@ -29,16 +30,16 @@ struct SymbolPopUpViewUIView: View {
                         }) {
                             Text(char)
                                 .font(.system(size: 20, weight: .medium))
-                                .foregroundColor(.black)
+                                .foregroundColor(themeManager.currentTheme.primaryTextColor)
                                 .frame(width: 36, height: 44)
-                                .background(Color.pink.opacity(0.2))
+                                .background(themeManager.currentTheme.primaryKeyBackground)
                                 .cornerRadius(4)
-                                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                                .shadow(color: themeManager.currentTheme.shadowColor, radius: 1, x: 0, y: 1)
                         }
                     }
                 }
                 .padding(8)
-                .background(Color.white)
+                .background(themeManager.currentTheme.popupBackground)
                 .cornerRadius(12)
             }
 
@@ -46,5 +47,5 @@ struct SymbolPopUpViewUIView: View {
 }
 
 #Preview {
-    SymbolPopUpViewUIView(showPeriodPopup: .constant(false), onKeyPress: {key in print(key)})
+    SymbolPopUpViewUIView(showPeriodPopup: .constant(false), onKeyPress: {key in print(key)}, themeManager: ThemeManager())
 }

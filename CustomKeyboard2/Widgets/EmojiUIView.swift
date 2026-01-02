@@ -11,11 +11,12 @@ struct EmojiUIView: View {
     let onKeyPress: (String) -> Void
     @Binding var showPeriodPopup: Bool
     @Binding var keyboardMode: KeyboardMode
-    
+    @ObservedObject var themeManager: ThemeManager
+
     var body: some View {
         VStack(spacing: 0) {
-            Emojis(onKeyPress: onKeyPress, showPeriodPopup: $showPeriodPopup)
-            
+            Emojis(onKeyPress: onKeyPress, showPeriodPopup: $showPeriodPopup, themeManager: themeManager)
+
             // Bottom row with back button and space
             HStack() {
                 // Back to letters button
@@ -25,9 +26,9 @@ struct EmojiUIView: View {
                 }) {
                     Text("ABC")
                         .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.blue)
+                        .foregroundColor(themeManager.currentTheme.accentColor)
                 }.padding(.leading,3)
-                
+
                 // Backspace
                 Button(action: {
                     onKeyPress("⌫")
@@ -35,7 +36,7 @@ struct EmojiUIView: View {
                 }) {
                     Text("⌫")
                         .font(.system(size: 20, weight: .medium))
-                        .foregroundColor(.gray)
+                        .foregroundColor(themeManager.currentTheme.specialKeyTextColor)
                 }
                 .frame(maxWidth: .infinity,alignment: .trailing)
                 .padding(.trailing,3)
@@ -46,5 +47,5 @@ struct EmojiUIView: View {
 }
 
 #Preview {
-    EmojiUIView(onKeyPress: {key in print(key)}, showPeriodPopup: .constant(false), keyboardMode: .constant(.emojis))
+    EmojiUIView(onKeyPress: {key in print(key)}, showPeriodPopup: .constant(false), keyboardMode: .constant(.emojis), themeManager: ThemeManager())
 }

@@ -21,6 +21,7 @@ struct KeyButton2: View {
     @Binding var isShifted: Bool
     @Binding var showPeriodPopup: Bool
     @Binding var isCapsLocked: Bool
+    @ObservedObject var themeManager: ThemeManager
 
     var body: some View {
         Button(action: {
@@ -33,12 +34,12 @@ struct KeyButton2: View {
         }) {
             Text(key)
                 .font(.system(size: 20, weight: .medium))
-                .foregroundColor(.black)
+                .foregroundColor(themeManager.currentTheme.primaryTextColor)
                 .frame(height: 44)
                 .frame(maxWidth: .infinity)
                 .background(color)
                 .cornerRadius(4)
-                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                .shadow(color: themeManager.currentTheme.shadowColor, radius: 1, x: 0, y: 1)
         }
     }
 }
@@ -50,6 +51,7 @@ struct SpaceKeyButton2: View {
     @Binding var isShifted: Bool
     @Binding var showPeriodPopup: Bool
     @Binding var isCapsLocked: Bool
+    @ObservedObject var themeManager: ThemeManager
 
     var body: some View {
         Button(action: {
@@ -63,11 +65,11 @@ struct SpaceKeyButton2: View {
 
             Text(key)
                 .font(.system(size: 16, weight: .medium))
-                .foregroundColor(.black)
+                .foregroundColor(themeManager.currentTheme.primaryTextColor)
                 .frame(maxWidth: .infinity, maxHeight:  45)
                 .background(color)
                 .cornerRadius(4)
-                .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                .shadow(color: themeManager.currentTheme.shadowColor, radius: 1, x: 0, y: 1)
         }
     }
 }

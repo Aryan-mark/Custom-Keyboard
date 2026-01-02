@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct Emojis: View {
-    
+
     let utils = Utils()
     let onKeyPress: (String) -> Void
     @Binding var showPeriodPopup: Bool
+    @ObservedObject var themeManager: ThemeManager
     
     var body: some View {
         VStack(spacing: 5) {
@@ -38,5 +39,5 @@ struct Emojis: View {
 }
 
 #Preview {
-    Emojis(onKeyPress: {key in print(key)}, showPeriodPopup: .constant(false))
+    Emojis(onKeyPress: {key in print(key)}, showPeriodPopup: .constant(false), themeManager: ThemeManager())
 }
